@@ -1,37 +1,75 @@
-<h1>Haaris's Champoins League</h1>
-<h2>Participants:</h2>
-<p>Habeeb, Huzaifah and Haaris</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GitHub Video Player Preview</title>
+  
+  <style>
+    /* Center the video player container neatly on your webpage */
+    body {
+      margin: 0;
+      padding: 40px 20px;
+      background-color: #f6f8fa; /* Standard light GitHub background tone */
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
 
-<h2>Match start time:</h2>
-<p>Jul 14 (Today)</p>
-<h1>Game 1:</h1>
+    /* 1. FIXED SIZING CONTAINER: Adjust max-width to change the display size on your page */
+    .video-card-container {
+      width: 100%;
+      max-width: 340px;          /* Shrinks the player down so it isn't too big */
+      border-radius: 14px;        /* Sleek modern rounded corners */
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15); /* Soft drop shadow */
+      background-color: #000000;  /* Fallback black background */
+    }
 
-<h2>Result: Haaris won by penalties!!!</h2>
+    /* 2. PLAYER FRAMEWORK: Controls the shape and presentation of the video player */
+    .custom-video-player {
+      width: 100%;
+      display: block;
+      
+      /* ADJUST RATIO HERE: 
+         - Use 16 / 9 for horizontal widescreen
+         - Use 9 / 16 for vertical smartphone/TikTok layout 
+         - Use 1 / 1 for a perfect square */
+      aspect-ratio: 16 / 9; 
+      
+      object-fit: cover; /* Prevents your preview image from stretching out of shape */
+    }
 
-<h1>Game 2:</h1>
-<h2>Result = Huzaifah-Haaris</h2>
+    /* Styling browser-injected controls to blend cleanly with the layout */
+    video::-webkit-media-controls-panel {
+      background-image: linear-gradient(transparent, rgba(0,0,0,0.7));
+    }
+  </style>
+</head>
+<body>
 
-<p>Score: 2-5</p>
-
-<div class="video-preview-container">
-  <!-- Wrap the entire preview in a link to Google Drive -->
-  <a href="https://drive.google.com/file/d/1Qo0L77NMlzFt-Ea4ywOe6BK157Y4mnAq/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="video-link">
+  <!-- The main container holding your video setup -->
+  <div class="video-card-container">
     
-    <!-- Your static preview image/thumbnail -->
-    <img src="https://cdn.discordapp.com/attachments/1456401439122260212/1527357966888734941/ChatGPT_Image_Jul_16_2026_05_54_10_PM.png?ex=6a5a5e74&is=6a590cf4&hm=1802fee664f808c9240534fbe58c5907cc99e4947b8a006f293462b546001a88">
-    
-    <!-- The central play button overlay -->
-    <div class="play-btn-overlay">
-      <svg viewBox="0 0 64 64" class="play-svg">
-        <circle cx="32" cy="32" r="30" fill="none" stroke="white" stroke-width="4"/>
-        <polygon points="26,18 46,32 26,46" fill="white"/>
-      </svg>
-    </div>
-    
-  </a>
-</div>
+    <!-- 
+      - 'controls' shows play/pause and the AirPlay button natively.
+      - 'x-webkit-airplay="allow"' registers full permissions to cast to TVs or devices.
+      - 'poster' sets the static image preview backdrop before clicking play.
+    -->
+    <video 
+      controls 
+      x-webkit-airplay="allow"
+      poster="https://cdn.discordapp.com/attachments/1456401439122260212/1527357966888734941/ChatGPT_Image_Jul_16_2026_05_54_10_PM.png?ex=6a5a5e74&is=6a590cf4&hm=1802fee664f808c9240534fbe58c5907cc99e4947b8a006f293462b546001a88" 
+      class="custom-video-player">
+      
+      <!-- Paste your direct Google Drive download link into the src attribute below -->
+      <source src="https://drive.google.com/file/d/1Qo0L77NMlzFt-Ea4ywOe6BK157Y4mnAq/view?usp=drivesdk" type="video/mp4">
+      
+      Your browser does not support native video streaming.
+    </video>
 
-<h1>Game 3:</h1>
-<h2>Result = Huzaifah-Haaris</h2>
+  </div>
 
-<p>Score: </p>
+</body>
+</html>
