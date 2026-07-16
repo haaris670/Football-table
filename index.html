@@ -3,73 +3,137 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GitHub Video Player Preview</title>
+  <title>Haaris's Champions League</title>
   
   <style>
-    /* Center the video player container neatly on your webpage */
+    /* Clean webpage baseline styling */
     body {
-      margin: 0;
-      padding: 40px 20px;
       background-color: #f6f8fa; /* Standard light GitHub background tone */
+      color: #24292f;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      padding: 30px 20px;
+      max-width: 600px;
+      margin: 0 auto;
     }
 
-    /* 1. FIXED SIZING CONTAINER: Adjust max-width to change the display size on your page */
-    .video-card-container {
-      width: 100%;
-      max-width: 340px;          /* Shrinks the player down so it isn't too big */
-      border-radius: 14px;        /* Sleek modern rounded corners */
-      overflow: hidden;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15); /* Soft drop shadow */
-      background-color: #000000;  /* Fallback black background */
+    h1 {
+      border-bottom: 1px solid #d0d7de;
+      padding-bottom: 8px;
+      margin-top: 30px;
     }
 
-    /* 2. PLAYER FRAMEWORK: Controls the shape and presentation of the video player */
-    .custom-video-player {
-      width: 100%;
+    h2 {
+      font-size: 1.25rem;
+      margin-top: 20px;
+      margin-bottom: 5px;
+    }
+
+    p {
+      margin-top: 0;
+      color: #57606a;
+    }
+
+    /* =======================================================
+       VIDEO PREVIEW RESIZING & OVERLAY CSS 
+       ======================================================= */
+       
+    /* 1. SIZE-RESTRICTED CONTAINER: Keeps the video small and sharp on your site */
+    .video-preview-container {
+      position: relative;
       display: block;
-      
-      /* ADJUST RATIO HERE: 
-         - Use 16 / 9 for horizontal widescreen
-         - Use 9 / 16 for vertical smartphone/TikTok layout 
-         - Use 1 / 1 for a perfect square */
-      aspect-ratio: 16 / 9; 
-      
-      object-fit: cover; /* Prevents your preview image from stretching out of shape */
+      width: 100%;
+      max-width: 300px;          /* Resizes the thumbnail so it isn't too big */
+      margin: 20px 0;            /* Adds spacing above and below the card */
+      border-radius: 12px;        /* Smooth modern corners matching your screenshot */
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15); /* Soft drop shadow */
+      background-color: #000000;
     }
 
-    /* Styling browser-injected controls to blend cleanly with the layout */
-    video::-webkit-media-controls-panel {
-      background-image: linear-gradient(transparent, rgba(0,0,0,0.7));
+    .video-link {
+      display: block;
+      position: relative;
+      width: 100%;
+      /* Forces standard video ratio. Change to 9 / 16 if your phone clip is vertical */
+      aspect-ratio: 16 / 9; 
+    }
+
+    /* 2. IMAGE RESIZING: Forces your Discord CDN image to scale into the crop frame */
+    .video-thumbnail-img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;         /* Prevents your image from stretching out of shape */
+    }
+
+    /* 3. SCREENSHOT STYLE OVERLAY: The dark circular play button from your photo */
+    .play-btn-overlay {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 56px;
+      height: 56px;
+      background-color: rgba(30, 33, 36, 0.75); /* Dark circle background from photo */
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.2s ease, transform 0.2s ease;
+      z-index: 10;
+    }
+
+    /* Crisp white triangular play symbol inside the dark circle */
+    .play-triangle {
+      width: 0;
+      height: 0;
+      border-top: 10px solid transparent;
+      border-bottom: 10px solid transparent;
+      border-left: 18px solid #ffffff;
+      margin-left: 4px; /* Optically adjusts centering alignment */
+    }
+
+    /* Hover animations when user rolls cursor over the image block */
+    .video-link:hover .play-btn-overlay {
+      background-color: rgba(30, 33, 36, 0.9);
+      transform: translate(-50%, -50%) scale(1.08);
     }
   </style>
 </head>
 <body>
 
-  <!-- The main container holding your video setup -->
-  <div class="video-card-container">
-    
-    <!-- 
-      - 'controls' shows play/pause and the AirPlay button natively.
-      - 'x-webkit-airplay="allow"' registers full permissions to cast to TVs or devices.
-      - 'poster' sets the static image preview backdrop before clicking play.
-    -->
-    <video 
-      controls 
-      x-webkit-airplay="allow"
-      poster="https://cdn.discordapp.com/attachments/1456401439122260212/1527357966888734941/ChatGPT_Image_Jul_16_2026_05_54_10_PM.png?ex=6a5a5e74&is=6a590cf4&hm=1802fee664f808c9240534fbe58c5907cc99e4947b8a006f293462b546001a88" 
-      class="custom-video-player">
-      
-      <!-- Paste your direct Google Drive download link into the src attribute below -->
-      <source src="https://drive.google.com/file/d/1Qo0L77NMlzFt-Ea4ywOe6BK157Y4mnAq/view?usp=drivesdk" type="video/mp4">
-      
-      Your browser does not support native video streaming.
-    </video>
+  <h1>Haaris's Champions League</h1>
+  <h2>Participants:</h2>
+  <p>Habeeb, Huzaifah and Haaris</p>
 
+  <h2>Match start time:</h2>
+  <p>Jul 14 (Today)</p>
+  
+  <h1>Game 1: Habeeb vs Huzi vs Haaris</h1>
+  <h2>Result: Haaris won by penalties!!!</h2>
+
+  <h1>Game 2:</h1>
+  <h2>Result = Huzaifah-Haaris</h2>
+  <p>Score: 2-5</p>
+
+  <!-- Resized Video Preview Block Section -->
+  <div class="video-preview-container">
+    <a href="https://drive.google.com/file/d/1Qo0L77NMlzFt-Ea4ywOe6BK157Y4mnAq/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="video-link">
+      
+      <!-- Your static preview image from Discord CDN configured with an explicit sizing class -->
+      <img src="https://cdn.discordapp.com/attachments/1456401439122260212/1527357966888734941/ChatGPT_Image_Jul_16_2026_05_54_10_PM.png?ex=6a5a5e74&is=6a590cf4&hm=1802fee664f808c9240534fbe58c5907cc99e4947b8a006f293462b546001a88" alt="Match Video Thumbnail" class="video-thumbnail-img">
+      
+      <!-- Custom Dark Circular Button Frame Layer Overlay -->
+      <div class="play-btn-overlay">
+        <div class="play-triangle"></div>
+      </div>
+      
+    </a>
   </div>
+
+  <h1>Game 3: Huzi vs Haaris</h1>
+  <h2>Result = Huzaifah-Haaris</h2>
+  <p>Score: </p>
 
 </body>
 </html>
