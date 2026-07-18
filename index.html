@@ -1,139 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Haaris's Champions League</title>
-  
-  <style>
-    /* Clean webpage baseline styling */
-    body {
-      background-color: #f6f8fa; /* Standard light GitHub background tone */
-      color: #24292f;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-      padding: 30px 20px;
-      max-width: 600px;
-      margin: 0 auto;
-    }
-
-    h1 {
-      border-bottom: 1px solid #d0d7de;
-      padding-bottom: 8px;
-      margin-top: 30px;
-    }
-
-    h2 {
-      font-size: 1.25rem;
-      margin-top: 20px;
-      margin-bottom: 5px;
-    }
-
-    p {
-      margin-top: 0;
-      color: #57606a;
-    }
-
-    /* =======================================================
-       VIDEO PREVIEW RESIZING & OVERLAY CSS 
-       ======================================================= */
-       
-    /* 1. SIZE-RESTRICTED CONTAINER: Keeps the video small and sharp on your site */
-    .video-preview-container {
-      position: relative;
-      display: block;
-      width: 100%;
-      max-width: 300px;          /* Resizes the thumbnail so it isn't too big */
-      margin: 20px 0;            /* Adds spacing above and below the card */
-      border-radius: 12px;        /* Smooth modern corners matching your screenshot */
-      overflow: hidden;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15); /* Soft drop shadow */
-      background-color: #000000;
-    }
-
-    .video-link {
-      display: block;
-      position: relative;
-      width: 100%;
-      /* Forces standard video ratio. Change to 9 / 16 if your phone clip is vertical */
-      aspect-ratio: 16 / 9; 
-    }
-
-    /* 2. IMAGE RESIZING: Forces your Discord CDN image to scale into the crop frame */
-    .video-thumbnail-img {
-      width: 100%;
-      height: 100%;
-      display: block;
-      object-fit: cover;         /* Prevents your image from stretching out of shape */
-    }
-
-    /* 3. SCREENSHOT STYLE OVERLAY: The dark circular play button from your photo */
-    .play-btn-overlay {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 56px;
-      height: 56px;
-      background-color: rgba(30, 33, 36, 0.75); /* Dark circle background from photo */
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background-color 0.2s ease, transform 0.2s ease;
-      z-index: 10;
-    }
-
-    /* Crisp white triangular play symbol inside the dark circle */
-    .play-triangle {
-      width: 0;
-      height: 0;
-      border-top: 10px solid transparent;
-      border-bottom: 10px solid transparent;
-      border-left: 18px solid #ffffff;
-      margin-left: 4px; /* Optically adjusts centering alignment */
-    }
-
-    /* Hover animations when user rolls cursor over the image block */
-    .video-link:hover .play-btn-overlay {
-      background-color: rgba(30, 33, 36, 0.9);
-      transform: translate(-50%, -50%) scale(1.08);
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>League of The Cousins Tracker</title>
+<style>
+:root{--bg-color:#0f172a;--card-bg:#1e293b;--accent-gold:#f59e0b;--accent-blue:#38bdf8;--text-main:#f8fafc;--text-muted:#94a3b8;--border-color:#334155;--win-color:#22c55e;--date-badge:#334155;}
+body{font-family:Segoe UI,Tahoma,Geneva,Verdana,sans-serif;background:var(--bg-color);color:var(--text-main);margin:0;padding:20px;display:flex;justify-content:center}
+.container{width:100%;max-width:900px}
+header{text-align:center;margin-bottom:30px;border-bottom:2px solid var(--border-color);padding-bottom:20px}
+h1{color:var(--accent-gold)} .date-banner{color:var(--accent-blue)}
+.card{background:var(--card-bg);padding:20px;border-radius:12px;border:1px solid var(--border-color);margin-bottom:25px}
+.participant-grid{display:grid;grid-template-columns:repeat(auto-fit, minmax(140px, 1fr));gap:12px;margin-top:15px}
+.participant-box{background:var(--bg-color);padding:12px;border-radius:8px;border:1px solid var(--border-color);text-align:center;font-weight:bold;font-size:1.05rem}
+.group-letter{color:var(--accent-gold);margin-left:5px}
+.fixture-list{display:flex;flex-direction:column;gap:16px}
+.match-card{background:var(--bg-color);padding:12px;border-left:4px solid var(--accent-blue);border-radius:8px}
+.match-date-badge{display:inline-block;background:var(--date-badge);padding:3px 8px;border-radius:4px;margin-bottom:8px;font-size:0.8rem;font-weight:bold}
+.match-row{display:flex;align-items:center;justify-content:space-between}
+.team-label{flex:1;font-weight:bold}
+.team-left{text-align:right;padding-right:15px}
+.team-right{text-align:left;padding-left:15px}
+.vs-label{padding:0 10px;color:var(--text-muted)}
+/* Updated style for the score text display */
+.score-text{width:50px;text-align:center;margin:0;font-weight:bold;color:var(--accent-gold)}
+table{width:100%;border-collapse:collapse}th,td{padding:10px;border-bottom:1px solid var(--border-color);text-align:center}
+.elimination-box{margin-top:20px;padding:15px;border:1px dashed var(--accent-gold);border-radius:8px}
+.highlight-text{color:var(--accent-gold);font-weight:bold}
+</style>
 </head>
 <body>
+<div class="container">
+<header><h1>Haaris Presents: League of The Cousins</h1><div class="date-banner">🏟️ Official 6-Player Tournament Schedule</div></header>
+<head>
+  <style>
+  .title {
+    color: #FF8C00;
+  }
+</style>
+<h2 class="title">Reward: Trophy🏆</h2>
+</head>
 
-  <h1>Haaris's Champions League</h1>
-  <h2>Participants:</h2>
-  <p>Habeeb, Huzaifah and Haaris</p>
+<div class="card">
+<h2>👥 Participants</h2>
+<div class="participant-grid">
+<div class="participant-box">Ismaeel <span class="group-letter">A</span></div>
+<div class="participant-box">Mueez <span class="group-letter">B</span></div>
+<div class="participant-box">Haaris <span class="group-letter">C</span></div>
+<div class="participant-box">Huzaifah <span class="group-letter">D</span></div>
+<div class="participant-box">Hamzah <span class="group-letter">E</span></div>
+<div class="participant-box">Abdullah <span class="group-letter">F</span></div>
+</div>
+</div>
 
-  <h2>Match start time:</h2>
-  <p>Jul 14 (Today)</p>
-  
-  <h1>Game 1: Habeeb vs Huzi vs Haaris</h1>
-  <h2>Result: Haaris won by penalties!!!</h2>
+<div class="card"><h2>🏆 Phase 1: The Group Stage</h2><div class="fixture-list">
+<div class="match-card"><div class="match-date-badge">📅 Match 1 • Sun 19th July</div><div class="match-row"><span class="team-label team-left">Ismaeel (A)</span><p class="score-text">0</p><span class="vs-label">VS</span><p class="score-text">0</p><span class="team-label team-right">Mueez (B)</span></div></div>
+<div class="match-card"><div class="match-date-badge">📅 Match 2 • Sat 18th July</div><div class="match-row"><span class="team-label team-left">Haaris (C)</span><p class="score-text">0</p><span class="vs-label">VS</span><p class="score-text">0</p><span class="team-label team-right">Huzaifah (D)</span></div></div>
+<div class="match-card"><div class="match-date-badge">📅 Match 3 • Sat 18th July</div><div class="match-row"><span class="team-label team-left">Hamzah (E)</span><p class="score-text">0</p><span class="vs-label">VS</span><p class="score-text">0</p><span class="team-label team-right">Abdullah (F)</span></div></div>
+<div class="match-card"><div class="match-date-badge">📅 Match 4 • Sat 18th July</div><div class="match-row"><span class="team-label team-left">Ismaeel (A)</span><p class="score-text">0</p><span class="vs-label">VS</span><p class="score-text">0</p><span class="team-label team-right">Haaris (C)</span></div></div>
+<div class="match-card"><div class="match-date-badge">📅 Match 5 • Sat 18th July</div><div class="match-row"><span class="team-label team-left">Mueez (B)</span><p class="score-text">0</p><span class="vs-label">VS</span><p class="score-text">0</p><span class="team-label team-right">Hamzah (E)</span></div></div>
+<div class="match-card"><div class="match-date-badge">📅 Match 6 • Sat 18th July</div><div class="match-row"><span class="team-label team-left">Huzaifah (D)</span><p class="score-text">0</p><span class="vs-label">VS</span><p class="score-text">0</p><span class="team-label team-right">Abdullah (F)</span></div></div>
+<div class="match-card"><div class="match-date-badge">📅 Match 7 • Sat 18th July</div><div class="match-row"><span class="team-label team-left">Ismaeel (A)</span><p class="score-text">0</p><span class="vs-label">VS</span><p class="score-text">0</p><span class="team-label team-right">Huzaifah (D)</span></div></div>
+<div class="match-card"><div class="match-date-badge">📅 Match 8 • Sun 19th July (Morning)</div><div class="match-row"><span class="team-label team-left">Mueez (B)</span><p class="score-text">0</p><span class="vs-label">VS</span><p class="score-text">0</p><span class="team-label team-right">Haaris (C)</span></div></div>
+<div class="match-card"><div class="match-date-badge">📅 Match 9 • Sun 19th July (Morning)</div><div class="match-row"><span class="team-label team-left">Hamzah (E)</span><p class="score-text">0</p><span class="vs-label">VS</span><p class="score-text">0</p><span class="team-label team-right">Huzaifah (D)</span></div></div>
+<div class="match-card"><div class="match-date-badge">📅 Match 10 • Sun 19th July (Morning)</div><div class="match-row"><span class="team-label team-left">Ismaeel (A)</span><p class="score-text">0</p><span class="vs-label">VS</span><p class="score-text">0</p><span class="team-label team-right">Abdullah (F)</span></div></div>
+<div class="match-card"><div class="match-date-badge">📅 Match 11 • Sun 19th July (Morning)</div><div class="match-row"><span class="team-label team-left">Mueez (B)</span><p class="score-text">0</p><span class="vs-label">VS</span><p class="score-text">0</p><span class="team-label team-right">Huzaifah (D)</span></div></div>
+<div class="match-card"><div class="match-date-badge">📅 Match 12 • Sun 19th July (Morning)</div><div class="match-row"><span class="team-label team-left">Haaris (C)</span><p class="score-text">0</p><span class="vs-label">VS</span><p class="score-text">0</p><span class="team-label team-right">Hamzah (E)</span></div></div>
+<div class="match-card"><div class="match-date-badge">📅 Match 13 • Sun 19th July (Afternoon)</div><div class="match-row"><span class="team-label team-left">Ismaeel (A)</span><p class="score-text">0</p><span class="vs-label">VS</span><p class="score-text">0</p><span class="team-label team-right">Hamzah (E)</span></div></div>
+<div class="match-card"><div class="match-date-badge">📅 Match 14 • Sun 19th July (Afternoon)</div><div class="match-row"><span class="team-label team-left">Mueez (B)</span><p class="score-text">0</p><span class="vs-label">VS</span><p class="score-text">0</p><span class="team-label team-right">Abdullah (F)</span></div></div>
+<div class="match-card"><div class="match-date-badge">📅 Match 15 • Sun 19th July (Afternoon)</div><div class="match-row"><span class="team-label team-left">Haaris (C)</span><p class="score-text">0</p><span class="vs-label">VS</span><p class="score-text">0</p><span class="team-label team-right">Abdullah (F)</span></div></div>
+</div></div>
 
-  <h1>Game 2:</h1>
-  <h2>Result = Huzaifah-Haaris</h2>
-  <p>Score: 2-5</p>
+<div class="card">
+<h2>⚡ Phase 2: Knockout Stage</h2>
+<h3>Semi-Finals</h3>
+<div class="fixture-list">
+<div class="match-card" style="border-left-color: var(--accent-gold);"><div class="match-date-badge" style="color:var(--accent-gold)">📅 Match 16 • Sun 19th July</div><div class="match-row"><span class="team-label team-left">1st Place</span><p class="score-text">0</p><span class="vs-label">VS</span><p class="score-text">0</p><span class="team-label team-right">4th Place</span></div></div>
+<div class="match-card" style="border-left-color: var(--accent-gold);"><div class="match-date-badge" style="color:var(--accent-gold)">📅 Match 17 • Sun 19th July</div><div class="match-row"><span class="team-label team-left">2nd Place</span><p class="score-text">0</p><span class="vs-label">VS</span><p class="score-text">0</p><span class="team-label team-right">3rd Place</span></div></div>
+</div>
+<h3>Grand Final</h3>
+<div class="fixture-list"><div class="match-card" style="border-left-color: var(--win-color);"><div class="match-date-badge" style="color:var(--win-color)">🏆 Match 18 • Sun 19th July (Evening)</div><div class="match-row"><span class="team-label team-left">Winner Semi 1</span><p class="score-text">0</p><span class="vs-label">VS</span><p class="score-text">0</p><span class="team-label team-right">Winner Semi 2</span></div></div></div>
+</div>
 
-  <!-- Resized Video Preview Block Section -->
-  <div class="video-preview-container">
-    <a href="https://drive.google.com/file/d/1Qo0L77NMlzFt-Ea4ywOe6BK157Y4mnAq/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="video-link">
-      
-      <!-- Your static preview image from Discord CDN configured with an explicit sizing class -->
-      <img src="https://cdn.discordapp.com/attachments/1456401439122260212/1527357966888734941/ChatGPT_Image_Jul_16_2026_05_54_10_PM.png?ex=6a5a5e74&is=6a590cf4&hm=1802fee664f808c9240534fbe58c5907cc99e4947b8a006f293462b546001a88" alt="Match Video Thumbnail" class="video-thumbnail-img">
-      
-      <!-- Custom Dark Circular Button Frame Layer Overlay -->
-      <div class="play-btn-overlay">
-        <div class="play-triangle"></div>
-      </div>
-      
-    </a>
-  </div>
-
-  <h1>Game 3: Huzi vs Haaris</h1>
-  <h2>Result = Huzaifah-Haaris</h2>
-  <p>Score: </p>
-
+<div class="card"><h2>📊 Live Group Table</h2>
+<table><tr><th>Player</th><th>P</th><th>W</th><th>D</th><th>L</th><th>GD</th><th>Pts</th></tr>
+<tr><td>Ismaeel</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>Mueez</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>Haaris</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>Huzaifah</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>Hamzah</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>Abdullah</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+</table>
+</div>
+</div>
 </body>
 </html>
