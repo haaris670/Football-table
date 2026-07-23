@@ -3,95 +3,1187 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>League of The Cousins</title>
+
 <style>
-:root{--bg-color:#0f172a;--card-bg:#1e293b;--accent-gold:#f59e0b;--accent-blue:#38bdf8;--text-main:#f8fafc;--text-muted:#94a3b8;--border-color:#334155;--win-color:#22c55e;--date-badge:#334155;}
-body{font-family:Segoe UI,Tahoma,Geneva,Verdana,sans-serif;background:var(--bg-color);color:var(--text-main);margin:0;padding:20px;display:flex;justify-content:center}
-.container{width:100%;max-width:900px}
-header{text-align:center;margin-bottom:30px;border-bottom:2px solid var(--border-color);padding-bottom:20px}
-h1{color:var(--accent-gold)} .date-banner{color:var(--accent-blue)}
-.card{background:var(--card-bg);padding:20px;border-radius:12px;border:1px solid var(--border-color);margin-bottom:25px}
-.participant-grid{display:grid;grid-template-columns:repeat(auto-fit, minmax(140px, 1fr));gap:12px;margin-top:15px}
-.participant-box{background:var(--bg-color);padding:12px;border-radius:8px;border:1px solid var(--border-color);text-align:center;font-weight:bold;font-size:1.05rem}
-.group-letter{color:var(--accent-gold);margin-left:5px}
-.fixture-list{display:flex;flex-direction:column;gap:16px}
-.match-card{background:var(--bg-color);padding:12px;border-left:4px solid var(--accent-blue);border-radius:8px}
-.match-date-badge{display:inline-block;background:var(--date-badge);padding:3px 8px;border-radius:4px;margin-bottom:8px;font-size:0.8rem;font-weight:bold}
-.match-row{display:flex;align-items:center;justify-content:space-between}
-.team-label{flex:1;font-weight:bold}
-.team-left{text-align:right;padding-right:15px}
-.team-right{text-align:left;padding-left:15px}
-.vs-label{padding:0 10px;color:var(--text-muted)}
-/* Updated style for the score text display */
-.score-text{width:50px;text-align:center;margin:0;font-weight:bold;color:var(--accent-gold)}
-table{width:100%;border-collapse:collapse}th,td{padding:10px;border-bottom:1px solid var(--border-color);text-align:center}
-.elimination-box{margin-top:20px;padding:15px;border:1px dashed var(--accent-gold);border-radius:8px}
-.highlight-text{color:var(--accent-gold);font-weight:bold}
+
+:root{
+  --bg-color:#0f172a;
+  --card-bg:#1e293b;
+  --accent-gold:#f59e0b;
+  --accent-blue:#38bdf8;
+  --text-main:#f8fafc;
+  --text-muted:#94a3b8;
+  --border-color:#334155;
+  --win-color:#22c55e;
+  --date-badge:#334155;
+}
+
+body{
+  font-family:Segoe UI,Tahoma,Geneva,Verdana,sans-serif;
+  background:var(--bg-color);
+  color:var(--text-main);
+  margin:0;
+  padding:20px;
+  display:flex;
+  justify-content:center;
+}
+
+.container{
+  width:100%;
+  max-width:900px;
+}
+
+header{
+  text-align:center;
+  margin-bottom:30px;
+  border-bottom:2px solid var(--border-color);
+  padding-bottom:20px;
+}
+
+h1{
+  color:var(--accent-gold);
+}
+
+.date-banner{
+  color:var(--accent-blue);
+}
+
+.card{
+  background:var(--card-bg);
+  padding:20px;
+  border-radius:12px;
+  border:1px solid var(--border-color);
+  margin-bottom:25px;
+}
+
+.participant-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(140px, 1fr));
+  gap:12px;
+  margin-top:15px;
+}
+
+.participant-box{
+  background:var(--bg-color);
+  padding:12px;
+  border-radius:8px;
+  border:1px solid var(--border-color);
+  text-align:center;
+  font-weight:bold;
+  font-size:1.05rem;
+}
+
+.group-letter{
+  color:var(--accent-gold);
+  margin-left:5px;
+}
+
+.fixture-list{
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+}
+
+.match-card{
+  background:var(--bg-color);
+  padding:12px;
+  border-left:4px solid var(--accent-blue);
+  border-radius:8px;
+}
+
+.match-date-badge{
+  display:inline-block;
+  background:var(--date-badge);
+  padding:3px 8px;
+  border-radius:4px;
+  margin-bottom:8px;
+  font-size:0.8rem;
+  font-weight:bold;
+}
+
+.match-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.team-label{
+  flex:1;
+  font-weight:bold;
+}
+
+.team-left{
+  text-align:right;
+  padding-right:15px;
+}
+
+.team-right{
+  text-align:left;
+  padding-left:15px;
+}
+
+.vs-label{
+  padding:0 10px;
+  color:var(--text-muted);
+}
+
+.score-text{
+  width:50px;
+  text-align:center;
+  margin:0;
+  font-weight:bold;
+  color:var(--accent-gold);
+}
+
+/* Match Result */
+
+.match-result{
+  margin-top:12px;
+  padding-top:10px;
+  border-top:1px solid var(--border-color);
+  text-align:center;
+  color:var(--win-color);
+  font-weight:bold;
+}
+
+/* Upcoming Match Result */
+
+.match-result.pending{
+  color:var(--text-muted);
+}
+
+/* Knockout Result */
+
+.knockout-result{
+  margin-top:12px;
+  padding-top:10px;
+  border-top:1px solid var(--border-color);
+  text-align:center;
+  color:var(--accent-gold);
+  font-weight:bold;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+}
+
+th,td{
+  padding:10px;
+  border-bottom:1px solid var(--border-color);
+  text-align:center;
+}
+
+.elimination-box{
+  margin-top:20px;
+  padding:15px;
+  border:1px dashed var(--accent-gold);
+  border-radius:8px;
+}
+
+.highlight-text{
+  color:var(--accent-gold);
+  font-weight:bold;
+}
+
+/* Tournament Results */
+
+.results-card{
+  border:2px solid var(--accent-gold);
+  text-align:center;
+}
+
+.champion-box{
+  background:var(--bg-color);
+  border:2px solid var(--win-color);
+  border-radius:12px;
+  padding:25px;
+  margin-bottom:20px;
+}
+
+.champion-box h3{
+  color:var(--win-color);
+  font-size:1.5rem;
+  margin-top:0;
+}
+
+.champion-name{
+  color:var(--accent-gold);
+  font-size:2rem;
+  font-weight:bold;
+}
+
+.results-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(160px, 1fr));
+  gap:12px;
+}
+
+.result-box{
+  background:var(--bg-color);
+  padding:18px;
+  border-radius:10px;
+  border:1px solid var(--border-color);
+}
+
+.result-position{
+  color:var(--text-muted);
+  font-size:0.9rem;
+  margin-bottom:8px;
+}
+
+.result-player{
+  font-size:1.2rem;
+  font-weight:bold;
+}
+
+.first-place{
+  border-color:var(--accent-gold);
+}
+
+.second-place{
+  border-color:#cbd5e1;
+}
+
+.third-place{
+  border-color:#cd7f32;
+}
+
+.fourth-place{
+  border-color:var(--border-color);
+}
+
 </style>
 </head>
+
 <body>
+
 <div class="container">
-<header><h1>Haaris Presents: League of The Cousins</h1><div class="date-banner">🏟️ Official 6-Player Tournament Schedule</div></header>
-<head>
-  <style>
-  .title {
-    color: #FF8C00;
-  }
-</style>
-<h2 class="title">Reward: Trophy🏆</h2>
-</head>
+
+<header>
+
+<h1>Haaris Presents: League of The Cousins</h1>
+
+<div class="date-banner">
+🏟️ Official 6-Player Tournament Schedule
+</div>
+
+</header>
+
+
+<h2 style="color:#FF8C00;">
+Reward: Trophy🏆
+</h2>
+
+
+<!-- PARTICIPANTS -->
 
 <div class="card">
+
 <h2>👥 Participants</h2>
+
 <div class="participant-grid">
-<div class="participant-box">Ismaeel <span class="group-letter">A</span></div>
-<div class="participant-box">Mueez <span class="group-letter">B</span></div>
-<div class="participant-box">Haaris <span class="group-letter">C</span></div>
-<div class="participant-box">Huzaifah <span class="group-letter">D</span></div>
-<div class="participant-box">Hamzah <span class="group-letter">E</span></div>
-<div class="participant-box">Abdullah <span class="group-letter">F</span></div>
-</div>
+
+<div class="participant-box">
+Ismaeel <span class="group-letter">A</span>
 </div>
 
-<div class="card"><h2>🏆 Phase 1: The Group Stage</h2><div class="fixture-list">
-<div class="match-card"><div class="match-date-badge">📅 Match 1 • Sun 19th July</div><div class="match-row"><span class="team-label team-left">Ismaeel (A)</span><p class="score-text">2</p><span class="vs-label"></span><p class="score-text">5</p><span class="team-label team-right">Mueez (B)</span></div></div>
-<div class="match-card"><div class="match-date-badge">📅 Match 2 • Soon</div><div class="match-row"><span class="team-label team-left">Haaris (C)</span><p class="score-text">0</p><span class="vs-label"></span><p class="score-text">0</p><span class="team-label team-right">Huzaifah (D)</span></div></div>
-<div class="match-card"><div class="match-date-badge">📅 Match 3 • Soon</div><div class="match-row"><span class="team-label team-left">Hamzah (E)</span><p class="score-text">0</p><span class="vs-label"></span><p class="score-text">0</p><span class="team-label team-right">Abdullah (F)</span></div></div>
-<div class="match-card"><div class="match-date-badge">📅 Match 4 • Soon</div><div class="match-row"><span class="team-label team-left">Ismaeel (A)</span><p class="score-text">0</p><span class="vs-label"></span><p class="score-text">0</p><span class="team-label team-right">Haaris (C)</span></div></div>
-<div class="match-card"><div class="match-date-badge">📅 Match 5 • Soon</div><div class="match-row"><span class="team-label team-left">Mueez (B)</span><p class="score-text">0</p><span class="vs-label"></span><p class="score-text">0</p><span class="team-label team-right">Hamzah (E)</span></div></div>
-<div class="match-card"><div class="match-date-badge">📅 Match 6 • Soon</div><div class="match-row"><span class="team-label team-left">Huzaifah (D)</span><p class="score-text">0</p><span class="vs-label"></span><p class="score-text">0</p><span class="team-label team-right">Abdullah (F)</span></div></div>
-<div class="match-card"><div class="match-date-badge">📅 Match 7 • Soon</div><div class="match-row"><span class="team-label team-left">Ismaeel (A)</span><p class="score-text">0</p><span class="vs-label"></span><p class="score-text">0</p><span class="team-label team-right">Huzaifah (D)</span></div></div>
-<div class="match-card"><div class="match-date-badge">📅 Match 8 • Soon (Afternoon)</div><div class="match-row"><span class="team-label team-left">Mueez (B)</span><p class="score-text">0</p><span class="vs-label"></span><p class="score-text">0</p><span class="team-label team-right">Haaris (C)</span></div></div>
-<div class="match-card"><div class="match-date-badge">📅 Match 9 • Soon (Afternoon)</div><div class="match-row"><span class="team-label team-left">Hamzah (E)</span><p class="score-text">0</p><span class="vs-label"></span><p class="score-text">0</p><span class="team-label team-right">Huzaifah (D)</span></div></div>
-<div class="match-card"><div class="match-date-badge">📅 Match 10 • Soon (Afternoon)</div><div class="match-row"><span class="team-label team-left">Ismaeel (A)</span><p class="score-text">0</p><span class="vs-label"></span><p class="score-text">0</p><span class="team-label team-right">Abdullah (F)</span></div></div>
-<div class="match-card"><div class="match-date-badge">📅 Match 11 • Soon (Afternoon)</div><div class="match-row"><span class="team-label team-left">Mueez (B)</span><p class="score-text">0</p><span class="vs-label"></span><p class="score-text">0</p><span class="team-label team-right">Huzaifah (D)</span></div></div>
-<div class="match-card"><div class="match-date-badge">📅 Match 12 • Soon (Afternoon)</div><div class="match-row"><span class="team-label team-left">Haaris (C)</span><p class="score-text">0</p><span class="vs-label"></span><p class="score-text">0</p><span class="team-label team-right">Hamzah (E)</span></div></div>
-<div class="match-card"><div class="match-date-badge">📅 Match 13 • Soon (Afternoon)</div><div class="match-row"><span class="team-label team-left">Ismaeel (A)</span><p class="score-text">0</p><span class="vs-label"></span><p class="score-text">0</p><span class="team-label team-right">Hamzah (E)</span></div></div>
-<div class="match-card"><div class="match-date-badge">📅 Match 14 • Soon (Afternoon)</div><div class="match-row"><span class="team-label team-left">Mueez (B)</span><p class="score-text">0</p><span class="vs-label"></span><p class="score-text">0</p><span class="team-label team-right">Abdullah (F)</span></div></div>
-<div class="match-card"><div class="match-date-badge">📅 Match 15 • Soon (Afternoon)</div><div class="match-row"><span class="team-label team-left">Haaris (C)</span><p class="score-text">0</p><span class="vs-label"></span><p class="score-text">0</p><span class="team-label team-right">Abdullah (F)</span></div></div>
-</div></div>
+<div class="participant-box">
+Mueez <span class="group-letter">B</span>
+</div>
+
+<div class="participant-box">
+Haaris <span class="group-letter">C</span>
+</div>
+
+<div class="participant-box">
+Huzaifah <span class="group-letter">D</span>
+</div>
+
+<div class="participant-box">
+Hamzah <span class="group-letter">E</span>
+</div>
+
+<div class="participant-box">
+Abdullah <span class="group-letter">F</span>
+</div>
+
+</div>
+
+</div>
+
+
+<!-- PHASE 1 -->
 
 <div class="card">
-<h2>⚡ Phase 2: Knockout Stage</h2>
-<h3>Semi-Finals</h3>
+
+<h2>🏆 Phase 1: The Group Stage</h2>
+
 <div class="fixture-list">
-<div class="match-card" style="border-left-color: var(--accent-gold);"><div class="match-date-badge" style="color:var(--accent-gold)">📅 Match 16 • Sun 19th July</div><div class="match-row"><span class="team-label team-left">1st Place</span><p class="score-text">0</p><span class="vs-label">VS</span><p class="score-text">0</p><span class="team-label team-right">4th Place</span></div></div>
-<div class="match-card" style="border-left-color: var(--accent-gold);"><div class="match-date-badge" style="color:var(--accent-gold)">📅 Match 17 • Sun 19th July</div><div class="match-row"><span class="team-label team-left">2nd Place</span><p class="score-text">0</p><span class="vs-label">VS</span><p class="score-text">0</p><span class="team-label team-right">3rd Place</span></div></div>
-</div>
-<h3>Grand Final</h3>
-<div class="fixture-list"><div class="match-card" style="border-left-color: var(--win-color);"><div class="match-date-badge" style="color:var(--win-color)">🏆 Match 18 • Sun 19th July (Evening)</div><div class="match-row"><span class="team-label team-left">Winner Semi 1</span><p class="score-text">0</p><span class="vs-label">VS</span><p class="score-text">0</p><span class="team-label team-right">Winner Semi 2</span></div></div></div>
+
+
+<!-- MATCH 1 -->
+
+<div class="match-card">
+
+<div class="match-date-badge">
+📅 Match 1 • Sun 19th July
 </div>
 
-<div class="card"><h2>📊 Live Group Table</h2>
-<table><tr><th>Player</th><th>P (Played)</th><th>W (Won)</th><th>D (Drawn)</th><th>L (Lost)</th><th>GD (Goal Difference)</th><th>Pts</th></tr>
-<tr><td>Ismaeel</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
-<tr><td>Mueez</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
-<tr><td>Haaris</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
-<tr><td>Huzaifah</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
-<tr><td>Hamzah</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
-<tr><td>Abdullah</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<div class="match-row">
+
+<span class="team-label team-left">
+Ismaeel (A)
+</span>
+
+<p class="score-text">
+2
+</p>
+
+<span class="vs-label">
+VS
+</span>
+
+<p class="score-text">
+5
+</p>
+
+<span class="team-label team-right">
+Mueez (B)
+</span>
+
+</div>
+
+<div class="match-result">
+🏆 Result: Mueez won 5–2
+</div>
+
+</div>
+
+
+<!-- MATCH 2 -->
+
+<div class="match-card">
+
+<div class="match-date-badge">
+📅 Match 2 • Soon
+</div>
+
+<div class="match-row">
+
+<span class="team-label team-left">
+Haaris (C)
+</span>
+
+<p class="score-text">
+0
+</p>
+
+<span class="vs-label">
+VS
+</span>
+
+<p class="score-text">
+0
+</p>
+
+<span class="team-label team-right">
+Huzaifah (D)
+</span>
+
+</div>
+
+<div class="match-result pending">
+⏳ Result: Match not played yet
+</div>
+
+</div>
+
+
+<!-- MATCH 3 -->
+
+<div class="match-card">
+
+<div class="match-date-badge">
+📅 Match 3 • Soon
+</div>
+
+<div class="match-row">
+
+<span class="team-label team-left">
+Hamzah (E)
+</span>
+
+<p class="score-text">
+0
+</p>
+
+<span class="vs-label">
+VS
+</span>
+
+<p class="score-text">
+0
+</p>
+
+<span class="team-label team-right">
+Abdullah (F)
+</span>
+
+</div>
+
+<div class="match-result pending">
+⏳ Result: Match not played yet
+</div>
+
+</div>
+
+
+<!-- MATCH 4 -->
+
+<div class="match-card">
+
+<div class="match-date-badge">
+📅 Match 4 • Soon
+</div>
+
+<div class="match-row">
+
+<span class="team-label team-left">
+Ismaeel (A)
+</span>
+
+<p class="score-text">
+0
+</p>
+
+<span class="vs-label">
+VS
+</span>
+
+<p class="score-text">
+0
+</p>
+
+<span class="team-label team-right">
+Haaris (C)
+</span>
+
+</div>
+
+<div class="match-result pending">
+⏳ Result: Match not played yet
+</div>
+
+</div>
+
+
+<!-- MATCH 5 -->
+
+<div class="match-card">
+
+<div class="match-date-badge">
+📅 Match 5 • Soon
+</div>
+
+<div class="match-row">
+
+<span class="team-label team-left">
+Mueez (B)
+</span>
+
+<p class="score-text">
+0
+</p>
+
+<span class="vs-label">
+VS
+</span>
+
+<p class="score-text">
+0
+</p>
+
+<span class="team-label team-right">
+Hamzah (E)
+</span>
+
+</div>
+
+<div class="match-result pending">
+⏳ Result: Match not played yet
+</div>
+
+</div>
+
+
+<!-- MATCH 6 -->
+
+<div class="match-card">
+
+<div class="match-date-badge">
+📅 Match 6 • Soon
+</div>
+
+<div class="match-row">
+
+<span class="team-label team-left">
+Huzaifah (D)
+</span>
+
+<p class="score-text">
+0
+</p>
+
+<span class="vs-label">
+VS
+</span>
+
+<p class="score-text">
+0
+</p>
+
+<span class="team-label team-right">
+Abdullah (F)
+</span>
+
+</div>
+
+<div class="match-result pending">
+⏳ Result: Match not played yet
+</div>
+
+</div>
+
+
+<!-- MATCH 7 -->
+
+<div class="match-card">
+
+<div class="match-date-badge">
+📅 Match 7 • Soon
+</div>
+
+<div class="match-row">
+
+<span class="team-label team-left">
+Ismaeel (A)
+</span>
+
+<p class="score-text">
+0
+</p>
+
+<span class="vs-label">
+VS
+</span>
+
+<p class="score-text">
+0
+</p>
+
+<span class="team-label team-right">
+Huzaifah (D)
+</span>
+
+</div>
+
+<div class="match-result pending">
+⏳ Result: Match not played yet
+</div>
+
+</div>
+
+
+<!-- MATCH 8 -->
+
+<div class="match-card">
+
+<div class="match-date-badge">
+📅 Match 8 • Soon (Afternoon)
+</div>
+
+<div class="match-row">
+
+<span class="team-label team-left">
+Mueez (B)
+</span>
+
+<p class="score-text">
+0
+</p>
+
+<span class="vs-label">
+VS
+</span>
+
+<p class="score-text">
+0
+</p>
+
+<span class="team-label team-right">
+Haaris (C)
+</span>
+
+</div>
+
+<div class="match-result pending">
+⏳ Result: Match not played yet
+</div>
+
+</div>
+
+
+<!-- MATCH 9 -->
+
+<div class="match-card">
+
+<div class="match-date-badge">
+📅 Match 9 • Soon (Afternoon)
+</div>
+
+<div class="match-row">
+
+<span class="team-label team-left">
+Hamzah (E)
+</span>
+
+<p class="score-text">
+0
+</p>
+
+<span class="vs-label">
+VS
+</span>
+
+<p class="score-text">
+0
+</p>
+
+<span class="team-label team-right">
+Huzaifah (D)
+</span>
+
+</div>
+
+<div class="match-result pending">
+⏳ Result: Match not played yet
+</div>
+
+</div>
+
+
+<!-- MATCH 10 -->
+
+<div class="match-card">
+
+<div class="match-date-badge">
+📅 Match 10 • Soon (Afternoon)
+</div>
+
+<div class="match-row">
+
+<span class="team-label team-left">
+Ismaeel (A)
+</span>
+
+<p class="score-text">
+0
+</p>
+
+<span class="vs-label">
+VS
+</span>
+
+<p class="score-text">
+0
+</p>
+
+<span class="team-label team-right">
+Abdullah (F)
+</span>
+
+</div>
+
+<div class="match-result pending">
+⏳ Result: Match not played yet
+</div>
+
+</div>
+
+
+<!-- MATCH 11 -->
+
+<div class="match-card">
+
+<div class="match-date-badge">
+📅 Match 11 • Soon (Afternoon)
+</div>
+
+<div class="match-row">
+
+<span class="team-label team-left">
+Mueez (B)
+</span>
+
+<p class="score-text">
+0
+</p>
+
+<span class="vs-label">
+VS
+</span>
+
+<p class="score-text">
+0
+</p>
+
+<span class="team-label team-right">
+Huzaifah (D)
+</span>
+
+</div>
+
+<div class="match-result pending">
+⏳ Result: Match not played yet
+</div>
+
+</div>
+
+
+<!-- MATCH 12 -->
+
+<div class="match-card">
+
+<div class="match-date-badge">
+📅 Match 12 • Soon (Afternoon)
+</div>
+
+<div class="match-row">
+
+<span class="team-label team-left">
+Haaris (C)
+</span>
+
+<p class="score-text">
+0
+</p>
+
+<span class="vs-label">
+VS
+</span>
+
+<p class="score-text">
+0
+</p>
+
+<span class="team-label team-right">
+Hamzah (E)
+</span>
+
+</div>
+
+<div class="match-result pending">
+⏳ Result: Match not played yet
+</div>
+
+</div>
+
+
+<!-- MATCH 13 -->
+
+<div class="match-card">
+
+<div class="match-date-badge">
+📅 Match 13 • Soon (Afternoon)
+</div>
+
+<div class="match-row">
+
+<span class="team-label team-left">
+Ismaeel (A)
+</span>
+
+<p class="score-text">
+0
+</p>
+
+<span class="vs-label">
+VS
+</span>
+
+<p class="score-text">
+0
+</p>
+
+<span class="team-label team-right">
+Hamzah (E)
+</span>
+
+</div>
+
+<div class="match-result pending">
+⏳ Result: Match not played yet
+</div>
+
+</div>
+
+
+<!-- MATCH 14 -->
+
+<div class="match-card">
+
+<div class="match-date-badge">
+📅 Match 14 • Soon (Afternoon)
+</div>
+
+<div class="match-row">
+
+<span class="team-label team-left">
+Mueez (B)
+</span>
+
+<p class="score-text">
+0
+</p>
+
+<span class="vs-label">
+VS
+</span>
+
+<p class="score-text">
+0
+</p>
+
+<span class="team-label team-right">
+Abdullah (F)
+</span>
+
+</div>
+
+<div class="match-result pending">
+⏳ Result: Match not played yet
+</div>
+
+</div>
+
+
+<!-- MATCH 15 -->
+
+<div class="match-card">
+
+<div class="match-date-badge">
+📅 Match 15 • Soon (Afternoon)
+</div>
+
+<div class="match-row">
+
+<span class="team-label team-left">
+Haaris (C)
+</span>
+
+<p class="score-text">
+0
+</p>
+
+<span class="vs-label">
+VS
+</span>
+
+<p class="score-text">
+0
+</p>
+
+<span class="team-label team-right">
+Abdullah (F)
+</span>
+
+</div>
+
+<div class="match-result pending">
+⏳ Result: Match not played yet
+</div>
+
+</div>
+
+
+</div>
+</div>
+
+
+<!-- PHASE 2 -->
+
+<div class="card">
+
+<h2>⚡ Phase 2: Knockout Stage</h2>
+
+<h3>Semi-Finals</h3>
+
+<div class="fixture-list">
+
+
+<!-- MATCH 16 -->
+
+<div class="match-card" style="border-left-color:var(--accent-gold);">
+
+<div class="match-date-badge" style="color:var(--accent-gold);">
+📅 Match 16 • Sun 19th July
+</div>
+
+<div class="match-row">
+
+<span class="team-label team-left">
+1st Place
+</span>
+
+<p class="score-text">
+0
+</p>
+
+<span class="vs-label">
+VS
+</span>
+
+<p class="score-text">
+0
+</p>
+
+<span class="team-label team-right">
+4th Place
+</span>
+
+</div>
+
+<div class="knockout-result">
+⏳ Result: Awaiting semi-final
+</div>
+
+</div>
+
+
+<!-- MATCH 17 -->
+
+<div class="match-card" style="border-left-color:var(--accent-gold);">
+
+<div class="match-date-badge" style="color:var(--accent-gold);">
+📅 Match 17 • Sun 19th July
+</div>
+
+<div class="match-row">
+
+<span class="team-label team-left">
+2nd Place
+</span>
+
+<p class="score-text">
+0
+</p>
+
+<span class="vs-label">
+VS
+</span>
+
+<p class="score-text">
+0
+</p>
+
+<span class="team-label team-right">
+3rd Place
+</span>
+
+</div>
+
+<div class="knockout-result">
+⏳ Result: Awaiting semi-final
+</div>
+
+</div>
+
+</div>
+
+
+<h3>Grand Final</h3>
+
+<div class="fixture-list">
+
+
+<!-- MATCH 18 -->
+
+<div class="match-card" style="border-left-color:var(--win-color);">
+
+<div class="match-date-badge" style="color:var(--win-color);">
+🏆 Match 18 • Sun 19th July (Evening)
+</div>
+
+<div class="match-row">
+
+<span class="team-label team-left">
+Winner Semi 1
+</span>
+
+<p class="score-text">
+0
+</p>
+
+<span class="vs-label">
+VS
+</span>
+
+<p class="score-text">
+0
+</p>
+
+<span class="team-label team-right">
+Winner Semi 2
+</span>
+
+</div>
+
+<div class="knockout-result">
+⏳ Result: Awaiting Grand Final
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- LIVE GROUP TABLE -->
+
+<div class="card">
+
+<h2>📊 Live Group Table</h2>
+
+<table>
+
+<tr>
+<th>Player</th>
+<th>P (Played)</th>
+<th>W (Won)</th>
+<th>D (Drawn)</th>
+<th>L (Lost)</th>
+<th>GD (Goal Difference)</th>
+<th>Pts</th>
+</tr>
+
+<tr>
+<td>Ismaeel</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>-3</td>
+<td>0</td>
+</tr>
+
+<tr>
+<td>Mueez</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>+3</td>
+<td>3</td>
+</tr>
+
+<tr>
+<td>Haaris</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+
+<tr>
+<td>Huzaifah</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+
+<tr>
+<td>Hamzah</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+
+<tr>
+<td>Abdullah</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+
 </table>
+
 </div>
+
+
+<!-- TOURNAMENT RESULTS -->
+
+<div class="card results-card">
+
+<h2>🏆 Tournament Results</h2>
+
+<div class="champion-box">
+
+<h3>👑 Tournament Champion</h3>
+
+<div class="champion-name">
+TBD
 </div>
+
+<p>
+🏆 Winner of the League of The Cousins
+</p>
+
+</div>
+
+
+<div class="results-grid">
+
+<div class="result-box first-place">
+<div class="result-position">🥇 1st Place</div>
+<div class="result-player">TBD</div>
+</div>
+
+<div class="result-box second-place">
+<div class="result-position">🥈 2nd Place</div>
+<div class="result-player">TBD</div>
+</div>
+
+<div class="result-box third-place">
+<div class="result-position">🥉 3rd Place</div>
+<div class="result-player">TBD</div>
+</div>
+
+<div class="result-box fourth-place">
+<div class="result-position">4️⃣ 4th Place</div>
+<div class="result-player">TBD</div>
+</div>
+
+</div>
+
+</div>
+
+
+</div>
+
 </body>
 </html>
